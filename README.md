@@ -1,1 +1,1 @@
-# logic-programming-with-csharp-basics
+# C# and .NET
