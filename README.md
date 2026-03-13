@@ -67,6 +67,25 @@ C# (pronounced *"C-sharp"*) is a modern, object-oriented, and type-safe programm
 - **Object-oriented** — everything revolves around classes and objects.
 - **Cross-platform** — runs on Windows, Linux, and macOS via .NET.
 
+**CLR — Common Language Runtime in C#**
+
+The CLR is the runtime engine that executes C# (and other .NET) programs. It manages execution, memory, and security — making C# **managed code**.
+
+```
+C# Source (.cs) → IL Bytecode (.dll/.exe) → JIT Compiler → Native Machine Code
+```
+ 
+C# compiles to **Intermediate Language (IL)** first. The CLR then JIT-compiles it to native CPU instructions at runtime.
+
+- **Core Responsibilities of CLR**
+  - **Garbage Collection** — automatic memory management; no manual `malloc`/`free`
+  - **JIT Compilation** — converts IL to native code, optimized for the current machine
+  - **Type Safety** — prevents invalid casts and type-related bugs
+  - **Exception Handling** — structured `try/catch/finally` across all .NET languages
+  - **Thread Management** — manages threads, thread pool, and synchronization
+  - **Security** — Code Access Security (CAS) controls what code is allowed to do
+  - **Interoperability** — allows calling native C/C++ (P/Invoke) and COM components
+
 ---
 
 ### 1.2 Setting Up the Environment
