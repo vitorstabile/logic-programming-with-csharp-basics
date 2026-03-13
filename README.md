@@ -85,6 +85,156 @@ C# compiles to **Intermediate Language (IL)** first. The CLR then JIT-compiles i
   - **Thread Management** — manages threads, thread pool, and synchronization
   - **Security** — Code Access Security (CAS) controls what code is allowed to do
   - **Interoperability** — allows calling native C/C++ (P/Invoke) and COM components
+ 
+**CLR vs JVM**
+
+| | CLR (.NET) | JVM (Java) |
+|---|---|---|
+| Languages | C#, F#, VB.NET | Java, Kotlin, Scala |
+| Bytecode | IL / MSIL | Java Bytecode |
+| Garbage Collection | ✅ | ✅ |
+| Cross-platform | .NET Core / .NET 5+ | ✅ |
+
+The CLR makes C# safer and more productive than C/C++ by handling memory, security, and execution automatically — at minimal performance cost thanks to modern JIT optimization.
+
+---
+
+### 1.1.1 .NET Application Architecture
+
+**Layer Overview**
+
+```
+Your C# Code
+      ↓
+  .NET SDK (build tools, CLI)
+      ↓
+  BCL — Base Class Library (System, Collections, IO, etc.)
+      ↓
+  CLR — Common Language Runtime (GC, JIT, type safety)
+      ↓
+  OS Abstraction Layer (Windows / Linux / macOS)
+      ↓
+  Hardware (CPU, Memory)
+```
+
+**SDK Layer**
+
+- **dotnet CLI** — `dotnet build`, `dotnet run`, `dotnet publish`
+- **MSBuild** — project build system (`.csproj`)
+- **NuGet** — package manager for dependencies
+
+**BCL — Base Class Library**
+
+Standard library included with .NET:
+ 
+| Namespace | Purpose |
+|---|---|
+| `System` | Primitives, `Console`, `Math`, `DateTime` |
+| `System.Collections` | `List<T>`, `Dictionary<T>`, `Queue<T>` |
+| `System.IO` | File system, streams |
+| `System.Net` | HTTP, sockets |
+| `System.Threading` | `Task`, `async/await`, `Thread` |
+| `System.Linq` | Query operations over collections |
+
+**Code Organization: Class → Namespace → Assembly**
+
+```
+Assembly (.dll / .exe)
+  └── Namespace (MyApp.Services)
+        └── Class (OrderService)
+              └── Members (fields, methods, properties)
+```
+
+**Class — Basic Unit**
+
+Encapsulates data and behavior. Other types: `struct`, `interface`, `enum`, `record`, `delegate`.
+ 
+```csharp
+namespace MyApp.Services
+{
+    public class OrderService
+    {
+        public Order GetOrder(int id) => _repo.Find(id);
+    }
+}
+```
+
+**Namespace — Logical Grouping**
+
+Groups related classes. Mirrors folder structure. No impact on compilation.
+
+```
+MyApp/
+├── Services/   → namespace MyApp.Services
+├── Models/     → namespace MyApp.Models
+└── Controllers/→ namespace MyApp.Controllers
+```
+
+**Assembly — Deployable Unit**
+
+Compiled output of a project. One `.csproj` = one assembly.
+ 
+| Type | Extension | Purpose |
+|---|---|---|
+| Executable | `.exe` | Entry point — runs directly |
+| Library | `.dll` | Reusable code — referenced by others |
+ 
+> ⚠️ **Namespace ≠ Assembly.** The same namespace can span multiple assemblies, and one assembly can contain multiple namespaces.
+
+**Solution Structure**
+
+```
+Solution (.sln)
+  ├── MyApp.Web.csproj      → MyApp.Web.dll      (entry point)
+  ├── MyApp.Services.csproj → MyApp.Services.dll
+  ├── MyApp.Data.csproj     → MyApp.Data.dll
+  └── MyApp.Domain.csproj   → MyApp.Domain.dll
+```
+ 
+| Concept | Scope | Form |
+|---|---|---|
+| `class` / `interface` | Groups members | Inside `.cs` file |
+| `namespace` | Logical grouping of types | Spans files and projects |
+| Assembly | Deployable unit | `.dll` or `.exe` |
+| Project | Build unit | `.csproj` → 1 assembly |
+| Solution | Workspace | `.sln` → N projects |
+
+**Application Models**
+
+| Model | Purpose |
+|---|---|
+| **ASP.NET Core** | Web APIs, MVC, Razor Pages |
+| **Blazor** | Web UI (WebAssembly or Server) |
+| **WPF / WinForms** | Desktop (Windows only) |
+| **MAUI** | Cross-platform mobile/desktop |
+| **Worker Services** | Background jobs, microservices |
+| **Console Apps** | CLI tools, scripts |
+
+**ASP.NET Core Request Flow**
+
+```
+HTTP Request → Kestrel → Middleware Pipeline
+  → Controller / Minimal API
+  → Service Layer (business logic)
+  → Data Layer (EF Core → DB)
+  → HTTP Response
+```
+
+**.NET Implementations**
+
+| Implementation | Target |
+|---|---|
+| **.NET 5–9** (unified) | Cross-platform, modern, recommended |
+| **.NET Framework** | Windows only, legacy |
+| **Mono** | Mobile (Xamarin/MAUI) |
+| **Unity** | Game development |
+
+**Key Design Principles**
+
+- **Cross-platform** — runs on Windows, Linux, macOS
+- **Modular** — include only what you need via NuGet
+- **AOT Compilation** — .NET 7+ native AOT skips JIT for faster startup
+- **Interoperability** — P/Invoke for native C/C++, COM interop for Windows APIs
 
 ---
 
