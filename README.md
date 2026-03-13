@@ -511,6 +511,59 @@ public class Config
 
 ---
 
+### 2.8 Overflowing
+
+Happens when arithmetic exceeds the range of a numeric type. By default C# wraps silently — no crash.
+
+```csharp
+byte b = 255;
+b++; // → 0 (wraps, unchecked default)
+```
+
+checked
+
+```csharp
+checked {
+  byte c = 255;
+  c++; // throws OverflowException
+}
+```
+
+---
+
+### 2.9 Type conversion
+
+**Implicit — safe, automatic**
+
+No data loss. The compiler does it for you when widening (e.g. int → double).
+
+```
+int i = 42;
+double d = i; // no cast needed
+```
+
+**Explicit — cast required, may truncate**
+
+```csharp
+double d = 9.99;
+int i = (int)d; // → 9, decimal dropped
+```
+
+**Convert — helper class, handles strings & nulls**
+
+```csharp
+int n = Convert.ToInt32("123");
+```
+
+**TryParse — safe, no exceptions**
+
+```csharp
+bool ok = int.TryParse("abc", out int result);
+// ok = false, result = 0
+```
+
+---
+
 ### :pencil: Section 2 — Exercises
 
 1. Declare variables of at least 6 different types and print each one with its type name using `GetType().Name`.
