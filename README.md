@@ -576,6 +576,16 @@ bool ok = int.TryParse("abc", out int result);
 
 ### 3.1 Arithmetic Operators
 
+| Operator | Name | Example | Result |
+|----------|------|---------|--------|
+| `+` | Addition | `5 + 3` | `8` |
+| `-` | Subtraction | `5 - 3` | `2` |
+| `*` | Multiplication | `5 * 3` | `15` |
+| `/` | Division | `6 / 3` | `2` |
+| `%` | Modulus | `5 % 3` | `2` |
+| `++` | Increment | `x++` | `x + 1` |
+| `--` | Decrement | `x--` | `x - 1` |
+
 ```csharp
 int a = 10, b = 3;
 
@@ -607,6 +617,15 @@ x %= 3;  // x = x % 3
 
 ### 3.2 Comparison Operators
 
+| Operator | Name | Example | Result |
+|----------|------|---------|--------|
+| `==` | Equal to | `5 == 5` | `true` |
+| `!=` | Not equal to | `5 != 3` | `true` |
+| `>` | Greater than | `5 > 3` | `true` |
+| `<` | Less than | `3 < 5` | `true` |
+| `>=` | Greater than or equal to | `5 >= 5` | `true` |
+| `<=` | Less than or equal to | `3 <= 5` | `true` |
+
 ```csharp
 int a = 10, b = 3;
 
@@ -628,6 +647,12 @@ Console.WriteLine(string.Equals(s1, s2, StringComparison.OrdinalIgnoreCase)); //
 
 ### 3.3 Logical Operators
 
+| Operator | Name | Example | Result |
+|----------|------|---------|--------|
+| `&&` | Logical AND | `true && false` | `false` |
+| `\|\|` | Logical OR | `true \|\| false` | `true` |
+| `!` | Logical NOT | `!true` | `false` |
+
 ```csharp
 bool t = true, f = false;
 
@@ -644,6 +669,16 @@ bool r2 = (x == 0) || (10 / x > 1);  // safe: second part not evaluated if first
 ---
 
 ### 3.4 String Operators
+
+| Operator | Name | Example | Result |
+|----------|------|---------|--------|
+| `+` | Concatenation | `"Hello" + " World"` | `"Hello World"` |
+| `+=` | Concatenation and assign | `str += " World"` | `str = str + " World"` |
+| `==` | Equality | `"abc" == "abc"` | `true` |
+| `!=` | Inequality | `"abc" != "xyz"` | `true` |
+| `[]` | Index access | `"Hello"[0]` | `'H'` |
+| `$""` | String interpolation | `$"Hi {name}"` | `"Hi John"` |
+| `@""` | Verbatim string | `@"C:\Users\file"` | `"C:\Users\file"` |
 
 ```csharp
 string firstName = "Alice";
@@ -677,6 +712,32 @@ string csv = "a,b,c,d";
 string[] parts = csv.Split(',');             // ["a", "b", "c", "d"]
 string joined = string.Join(" | ", parts);  // "a | b | c | d"
 ```
+
+---
+
+### 3.5 Assignment Operators
+
+| Operator | Name | Example | Equivalent |
+|----------|------|---------|------------|
+| `=` | Assignment | `x = 5` | `x = 5` |
+| `+=` | Add and assign | `x += 3` | `x = x + 3` |
+| `-=` | Subtract and assign | `x -= 3` | `x = x - 3` |
+| `*=` | Multiply and assign | `x *= 3` | `x = x * 3` |
+| `/=` | Divide and assign | `x /= 3` | `x = x / 3` |
+| `%=` | Modulus and assign | `x %= 3` | `x = x % 3` |
+
+---
+
+### 3.6 Bitwise Operators
+
+| Operator | Name | Example | Result |
+|----------|------|---------|--------|
+| `&` | Bitwise AND | `5 & 3` | `1` |
+| `\|` | Bitwise OR | `5 \| 3` | `7` |
+| `^` | Bitwise XOR | `5 ^ 3` | `6` |
+| `~` | Bitwise NOT | `~5` | `-6` |
+| `<<` | Left shift | `5 << 1` | `10` |
+| `>>` | Right shift | `5 >> 1` | `2` |
 
 ---
 
