@@ -311,21 +311,42 @@ C# divides all types into two fundamental categories:
 
 ### 2.2 Built-in Value Types
 
-| Type | Size | Range / Notes | Example |
-|------|------|---------------|---------|
-| `byte` | 1 byte | 0 to 255 | `byte b = 200;` |
-| `short` | 2 bytes | -32,768 to 32,767 | `short s = 1000;` |
-| `int` | 4 bytes | ~-2 billion to 2 billion | `int age = 25;` |
-| `long` | 8 bytes | Very large integers | `long pop = 8_000_000_000L;` |
-| `float` | 4 bytes | ~7 decimal digits | `float f = 3.14f;` |
-| `double` | 8 bytes | ~15-16 decimal digits | `double d = 3.14159;` |
-| `decimal` | 16 bytes | 28-29 significant digits (financial) | `decimal price = 9.99m;` |
-| `bool` | 1 byte | `true` or `false` | `bool isActive = true;` |
-| `char` | 2 bytes | Single Unicode character | `char grade = 'A';` |
+| C# Type | .NET Type | Size (bytes) | Range |
+|---------|-----------|:------------:|-------|
+| `bool` | `System.Boolean` | 1 | `true` or `false` |
+| `byte` | `System.Byte` | 1 | 0 to 255 |
+| `sbyte` | `System.SByte` | 1 | −128 to 127 |
+| `short` | `System.Int16` | 2 | −32,768 to 32,767 |
+| `ushort` | `System.UInt16` | 2 | 0 to 65,535 |
+| `int` | `System.Int32` | 4 | −2,147,483,648 to 2,147,483,647 |
+| `uint` | `System.UInt32` | 4 | 0 to 4,294,967,295 |
+| `long` | `System.Int64` | 8 | −9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 |
+| `ulong` | `System.UInt64` | 8 | 0 to 18,446,744,073,709,551,615 |
+| `float` | `System.Single` | 4 | ±1.5×10⁻⁴⁵ to ±3.4×10³⁸ (~7 digits precision) |
+| `double` | `System.Double` | 8 | ±5.0×10⁻³²⁴ to ±1.7×10³⁰⁸ (~15–17 digits precision) |
+| `decimal` | `System.Decimal` | 16 | ±1.0×10⁻²⁸ to ±7.9×10²⁸ (~28–29 digits precision) |
+| `char` | `System.Char` | 2 | U+0000 to U+FFFF (Unicode UTF-16) |
 
 ---
 
 ### 2.3 Reference Types
+
+| C# Type | .NET Type | Size (bytes) | Notes |
+|---------|-----------|:------------:|-------|
+| `string` | `System.String` | varies | Reference type; up to ~2 billion `char`s |
+| `object` | `System.Object` | varies | Base type of all .NET types; reference type |
+| `dynamic` | `System.Object` | varies | Resolved at runtime; skips compile-time checks |
+| `int[]` | `System.Array` | varies | Reference type; zero-indexed; fixed size |
+| `List<T>` | `System.Collections.Generic.List<T>` | varies | Dynamic array; reference type |
+| `Dictionary<K,V>` | `System.Collections.Generic.Dictionary<K,V>` | varies | Hash-based key-value store |
+| `Tuple<T>` | `System.Tuple` | varies | Immutable, fixed-size grouping of values |
+| `struct` | `System.ValueType` | varies | Value type; stack-allocated by default |
+| `enum` | `System.Enum` | 4 (default) | Named integer constants; underlying type configurable |
+| `class` | `System.Object` | varies | Reference type; heap-allocated |
+| `interface` | — | varies | Contract only; no direct instantiation |
+| `delegate` | `System.Delegate` | varies | Type-safe function pointer / callback |
+| `record` | `System.Object` | varies | Immutable reference type (C# 9+); value-equality semantics |
+| `Nullable<T>` | `System.Nullable<T>` | varies | Wraps a value type to allow `null` (shorthand: `T?`) |
 
 ```csharp
 // string — immutable sequence of characters
