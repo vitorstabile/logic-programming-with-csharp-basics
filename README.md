@@ -432,6 +432,64 @@ string currency = money.ToString("C");  // "$1,234.56" (locale-dependent)
 
 ---
 
+### 2.7 `const` and `readonly` in C#
+
+C# provides two keywords for declaring immutable values: `const` for compile-time constants and `readonly` for runtime-assigned values that cannot change after construction.
+
+**`const`**
+
+Declares a **compile-time constant**. The value is embedded directly into the compiled IL and is always implicitly `static`. Only works with primitive types and `string`.
+ 
+```csharp
+public const double Pi = 3.14159;
+public const int MaxRetries = 3;
+public const string AppVersion = "1.0.0";
+```
+ 
+> ⚠️ **Versioning trap:** `const` values are baked into dependent assemblies at compile time. If you change a `const` in a library, all consumers must recompile to pick up the new value.
+
+**`readonly`**
+ 
+Declares a **runtime constant**. Can be assigned at declaration or inside a constructor — never after. Supports any type, including objects and collections.
+ 
+```csharp
+public class Config
+{
+    public readonly DateTime StartedAt;
+    public static readonly IReadOnlyList<string> Currencies = new List<string> { "USD", "EUR" };
+ 
+    public Config()
+    {
+        StartedAt = DateTime.UtcNow; // ✅ set at runtime
+    }
+}
+```
+
+**When to Use Each**
+
+| Scenario | Use |
+|---|---|
+| Fixed number or string known at compile time | `const` |
+| Value computed at runtime (e.g. `DateTime.Now`) | `readonly` |
+| Shared object or collection across instances | `static readonly` |
+| Per-instance value set once in the constructor | `readonly` (instance) |
+
+**Comparison**
+ 
+| Feature | `const` | `readonly` |
+|---|---|---|
+| Evaluated at | Compile-time | Runtime |
+| Implicitly `static` | ✅ Yes | ❌ No |
+| Supports objects / `new` | ❌ No | ✅ Yes |
+| Can vary per instance | ❌ No | ✅ Yes |
+| Set in constructor | ❌ No | ✅ Yes |
+
+**vs. Java `final`**
+ 
+`readonly` is the closest C# equivalent to Java `final` fields. Java's `final` is broader — it also applies to methods and classes (preventing override/inheritance), which C# handles with `sealed` and `abstract` instead.
+
+---
+
 ### :pencil: Section 2 — Exercises
 
 1. Declare variables of at least 6 different types and print each one with its type name using `GetType().Name`.
